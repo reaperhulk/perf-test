@@ -1,0 +1,15 @@
+name: CI
+on:
+  push:
+    branches:
+    - main
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - run: cat /proc/sys/kernel/perf_event_paranoid
+    - run: sudo sh -c 'echo 0 >/proc/sys/kernel/perf_event_paranoid'
+    - run: perf stat ls || true
